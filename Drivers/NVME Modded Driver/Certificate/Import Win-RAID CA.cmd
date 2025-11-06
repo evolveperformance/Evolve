@@ -1,5 +1,14 @@
+echo off &TITLE Win-RAID CA.cer install script
+:WELCOME
 cls
-goto WORK
+echo.
+echo This will install the "Win-RAID CA.cer" as Trusted Root and Trusted Publisher Certificate.
+echo.
+set /P "START=Continue? (y/n): "
+ 
+if '%START%' equ 'y' goto WORK
+if '%START%' equ 'n' goto :eof
+goto WELCOME
  
 :WORK
 if not exist "%SYSTEMROOT%\System32\certutil.exe" goto CERTUTIL_NOT_FOUND
@@ -66,6 +75,7 @@ echo ***************************************************************************
 echo.
 call %SYSTEMROOT%\System32\certutil.exe -f -addstore "TrustedPublisher" "%CA%"
 echo. &echo.
+@pause
  
 call del /f "%CA%"
 goto :eof
@@ -76,3 +86,4 @@ echo.
 echo Failure: Windows tool "Certutil.exe" not found.
 echo Certificate couldn't be installed.
 echo.
+@pause
