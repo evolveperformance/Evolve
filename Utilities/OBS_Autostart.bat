@@ -10,7 +10,7 @@ echo.
 set "OBS_EXE=C:\Program Files\obs-studio\bin\64bit\obs64.exe"
 set "SHORTCUT=%TEMP%\OBS AutoStart.lnk"
 set "STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
-set "ARGS=--startreplaybuffer --minimize-to-tray --disable-update --disable-shutdown-check"
+set "ARGS=--startreplaybuffer --minimize-to-tray --disable-update --disable-shutdown-check --disable-safe-mode"
 
 :: Verify OBS exists
 if not exist "%OBS_EXE%" (
