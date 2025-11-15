@@ -1,15 +1,15 @@
 @echo off
-title MSI Afterburner - Auto Profile 1
-color 0A
 
-:: Launch MSI Afterburner with Profile 1 silently
-start "" /min "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe" /Profile1
+REM Get Startup folder path
+set "STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+set "TARGET=%STARTUP%\MSIAfterburner_Startup.bat"
 
-:: Wait 7 seconds (gives time to load + apply the profile)
-timeout /t 7 /nobreak >nul
+REM Write the commands to the new startup batch file
+echo @echo off > "%TARGET%"
+echo start "" /min "C:\Program Files (x86)\MSI Afterburner\MSIAfterburner.exe" -Profile1 -m -nosplash >> "%TARGET%"
+echo timeout /t 3 /nobreak ^>nul >> "%TARGET%"
+echo taskkill /IM MSIAfterburner.exe /F ^>nul 2^>^&1 >> "%TARGET%"
+echo exit >> "%TARGET%"
 
-:: Kill Afterburner if it’s still running
-taskkill /IM MSIAfterburner.exe /F >nul 2>&1
-
-echo ✅  MSI Afterburner Profile 1 applied successfully.
-exit /b
+REM Done
+exit
